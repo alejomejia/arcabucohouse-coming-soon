@@ -1,0 +1,69 @@
+---
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Arcabuco ~ High-end interiorism made by Colombian artisans</title>
+	</head>
+	<body>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	@font-face {
+		font-family: 'Manrope';
+		src: url('/fonts/manrope-medium.woff2') format('woff2');
+		font-style: normal;
+		font-weight: 500;
+		font-display: swap;
+	}
+
+	:root {
+		--color-white: #f1f1f1;
+		--color-gray: #919191;
+		--color-black: #1d1d1e;
+	}
+
+	*, *::before, *::after {
+		box-sizing: border-box;
+	}
+
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		font-size: 16px;
+		line-height: 1.5;
+		font-family: Manrope, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+		-webkit-font-smoothing: antialiased;
+	}
+
+	img, picture, video, canvas, svg {
+		display: block;
+		max-width: 100%;
+	}
+
+	p, h1, h2, h3, h4, h5, h6 {
+		overflow-wrap: break-word;
+	}
+
+	p {
+  	text-wrap: pretty;
+	}
+
+	h1, h2, h3, h4, h5, h6 {
+		text-wrap: balance;
+	}
+
+	.inline-block {
+		display: inline-block;
+	}
+</style>
