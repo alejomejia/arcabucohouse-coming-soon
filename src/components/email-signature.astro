@@ -1,0 +1,241 @@
+---
+interface Props {
+  name: string;
+  title: string;
+  emailAddress: string;
+}
+
+const { name, title, emailAddress } = Astro.props;
+---
+<meta charset="utf-8">
+<table
+  cellpadding="0"
+  cellspacing="0"
+  border="0"
+  style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Verdana"
+>
+  <tbody>
+    <tr>
+      <td>
+        <table
+          cellpadding="0"
+          cellspacing="0"
+          border="0"
+          style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Verdana"
+        >
+          <tbody>
+            <tr>
+              <td aria-label="Horizontal Spacer" style="height: 16px;"></td>
+            </tr>
+            <tr>
+              <td>
+                <a href="https://arcabucohouse.com" style="display: inline-block; padding: 0px; border-radius: 50%">
+                  <img
+                    src="https://arcabucohouse.com/assets/email-signatures/logo-arcabuco.png"
+                    alt="Logo Arcabuco"
+                    width="auto"
+                    loading="lazy"
+                    style="background-color: transparent; max-width: 240px; display: block"
+                  />
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td aria-label="Horizontal Spacer" style="height: 16px;"></td>
+            </tr>
+            <tr>
+              <td style="padding: 0px; vertical-align: middle">
+                <h2
+                  style="
+                    margin: 0px;
+                    font-size: 18px;
+                    font-family: Verdana;
+                    color: rgb(29, 29, 30);
+                    font-weight: 600;
+                    line-height: 28px;
+                  "
+                >
+                  <span>{name}</span>
+                </h2>
+                <p style="margin: 0px; color: rgb(29, 29, 30); font-size: 14px; line-height: 22px">
+                  <span>{title}</span>
+                </p>
+                <table
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                  style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Verdana; width: 100%"
+                >
+                  <tbody>
+                    <tr>
+                      <td aria-label="Horizontal Spacer" style="height: 16px;"></td>
+                    </tr>
+                    <tr>
+                      <td
+                        aria-label="Divider"
+                        style="
+                          width: 100%;
+                          height: 1px;
+                          border-bottom: 1px solid rgb(111, 107, 108);
+                          border-left: none;
+                          display: block;
+                        "
+                      ></td>
+                    </tr>
+                    <tr>
+                      <td aria-label="Horizontal Spacer" style="height: 16px;"></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                  style="
+                    vertical-align: -webkit-baseline-middle;
+                    font-size: medium;
+                    font-family: Verdana;
+                    line-height: 1;
+                  "
+                >
+                  <tbody>
+                    <tr style="vertical-align: middle; height: 28px">
+                      <td style="vertical-align: middle; width: 26px;">
+                        <table
+                          cellpadding="0"
+                          cellspacing="0"
+                          border="0"
+                          style="
+                            vertical-align: -webkit-baseline-middle;
+                            font-size: medium;
+                            font-family: Verdana;
+                            width: 26px;
+                          "
+                        >
+                          <tbody>
+                            <tr>
+                              <td style="vertical-align: bottom">
+                                <span
+                                  style="background-color: rgb(111, 107, 108); display: inline-block; margin-top: 5px"
+                                >
+                                  <img
+                                    src="https://arcabucohouse.com/assets/email-signatures/icon-website.webp"
+                                    alt="website"
+                                    width="18"
+                                    style="
+                                      display: block;
+                                      background-image: linear-gradient(rgb(111, 107, 108), rgb(111, 107, 108));
+                                    "
+                                  />
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td style="padding: 0px; color: rgb(29, 29, 30)">
+                        <a
+                          href="//arcabucohouse.com"
+                          style="text-decoration: none; color: rgb(29, 29, 30); font-size: 14px"
+                        >
+                          <span>arcabucohouse.com</span>
+                        </a>
+                      </td>
+                    </tr>
+                    <tr style="vertical-align: middle; height: 28px">
+                      <td style="vertical-align: middle; width: 26px;">
+                        <table
+                          cellpadding="0"
+                          cellspacing="0"
+                          border="0"
+                          style="
+                            vertical-align: -webkit-baseline-middle;
+                            font-size: medium;
+                            font-family: Verdana;
+                            width: 26px;
+                          "
+                        >
+                          <tbody>
+                            <tr>
+                              <td style="vertical-align: bottom">
+                                <span
+                                  style="background-color: rgb(111, 107, 108); display: inline-block; margin-top: 5px"
+                                >
+                                  <img
+                                    src="https://arcabucohouse.com/assets/email-signatures/icon-email.webp"
+                                    alt="email address"
+                                    width="18"
+                                    style="
+                                      display: block;
+                                      background-image: linear-gradient(rgb(111, 107, 108), rgb(111, 107, 108));
+                                    "
+                                  />
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td style="padding: 0px; color: rgb(29, 29, 30)">
+                        <a
+                          href=`mailto:${emailAddress}`
+                          style="text-decoration: none; color: rgb(29, 29, 30); font-size: 14px"
+                        >
+                          <span>{emailAddress}</span>
+                        </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td aria-label="Horizontal Spacer" style="height: 16px;"></td>
+            </tr>
+            <tr>
+              <td>
+                <div>
+                  <a
+                    href="https://www.pinterest.com/arcabucohouse/"
+                    style="display: inline-block; padding: 0px; background-color: rgb(50, 50, 50); border-radius: 50%"
+                  >
+                    <img
+                      src="https://arcabucohouse.com/assets/email-signatures/icon-pinterest.png"
+                      alt="pinterest"
+                      width="24"
+                      loading="lazy"
+                      style="
+                        background-color: rgb(50, 50, 50);
+                        max-width: 135px;
+                        display: block;
+                        border-radius: inherit;
+                      "
+                    />
+                  </a>
+                  <span style="display: inline-block"></span>
+                  <a
+                    href="https://www.instagram.com/arcabuco.house/"
+                    style="display: inline-block; padding: 0px; background-color: rgb(50, 50, 50); border-radius: 50%"
+                  >
+                    <img
+                      src="https://arcabucohouse.com/assets/email-signatures/icon-instagram.webp"
+                      alt="instagram"
+                      width="24"
+                      loading="lazy"
+                      style="
+                        background-color: rgb(50, 50, 50);
+                        max-width: 135px;
+                        display: block;
+                        border-radius: inherit;
+                      "
+                    />
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
