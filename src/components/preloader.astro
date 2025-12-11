@@ -1,0 +1,307 @@
+---
+import KeywordsWall from './keywords-wall.astro';
+import BrandBadge from './brand-badge.astro';
+import Logo from './logo.astro';
+
+const KEYWORDS_LIST = [
+	"high-end",
+	"lights",
+	"craftmanship",
+	"colombian",
+	"artisans",
+	"bespoke",
+	"woodworking",
+	"minimalism",
+	"craftmanship",
+	"modernism",
+	"contemporary",
+	"ceramics",
+]
+
+const IMAGES_URLS = [
+	"/assets/preload/preload-1.webp",
+	"/assets/preload/preload-2.webp",
+	"/assets/preload/preload-3.webp",
+	"/assets/preload/preload-4.webp",
+	"/assets/preload/preload-6.webp",
+	"/assets/preload/preload-5.webp",
+]
+
+const imagesToSplit = Array(2).fill(IMAGES_URLS.at(-1))
+---
+<main id="root" class="relative w-full h-screen text-(--color-white) bg-(--color-black) overflow-hidden">
+  <div id="mask" class="absolute z-10 w-full h-full text-(--color-black) bg-(--color-white) clip-path-polygon-rectangle-center">
+		<KeywordsWall words={KEYWORDS_LIST} />
+  </div>
+
+  <div id="images" class="fixed z-20 inset-0 pointer-events-none scale-90 md:scale-100">
+		<div class="image-container absolute left-1/2 top-1/2 w-full h-full max-w-3xl -translate-x-1/2 -translate-y-1/2 clip-path-rectangle-corners">
+			{IMAGES_URLS.map((url) => (
+				<div class="image-wrapper absolute top-1/2 -translate-y-1/2 overflow-hidden aspect-ratio-3-2 clip-path-polygon-rectangle-bottom will-change-clip-path ">
+					<img src={url} alt="" class="image relative w-full h-full object-cover transform scale-150 will-change-transform"  />
+				</div>
+			))}
+    </div>
+    <div class="image-split-container hidden absolute top-1/2 left-1/2 w-full h-full max-w-3xl -translate-x-1/2 -translate-y-1/2 aspect-ratio-3-2">
+			{imagesToSplit.map((lastImageUrl, index) => (
+				<div class:list={[
+					"image-split-wrapper", 
+					"absolute top-1/2 w-full -translate-y-1/2", 
+					{
+						"clip-path-polygon-rectangle-left": index === 0, 
+						"clip-path-polygon-rectangle-right": index === 1 
+					}
+				]}>
+					<img src={lastImageUrl} alt="" class="" />
+				</div>
+			))}
+    </div>
+  </div>
+
+  <div id="content" class="absolute inset-0 flex flex-col items-center justify-center gap-16">
+    <div class="brand-badge w-full max-w-50 opacity-0">
+      <BrandBadge />
+    </div>
+    <div class="logo w-full max-w-80 md:max-w-160 [&_path]:opacity-0">
+			<Logo />
+    </div>
+    <div class="words-container text-center opacity-0 text-xl uppercase font-medium tracking-wider">
+      <h2 class="max-w-98 mb-4">
+				High-end interiorism <span class="inline-block">made by Colombian artisans</span>
+			</h2>
+      <p class="word-highlight text-(--color-gray)">Arriving on 2026</p>
+    </div>
+  </div>
+</main>
+
+<script>
+	import { gsap } from 'gsap'
+	import { SplitText } from 'gsap/SplitText'
+	import { CustomEase } from 'gsap/CustomEase'
+
+	async function waitForFonts() {
+		try {
+			await document.fonts.ready;
+			const customFonts = ["Manrope"];
+			const fontCheckPromises = customFonts.map((fontFamily) => {
+				return document.fonts.check(`16px ${fontFamily}`);
+			});
+			await Promise.all(fontCheckPromises);
+			await new Promise((resolve) => setTimeout(resolve, 100));
+			return true;
+		} catch (error) {
+			await new Promise((resolve) => setTimeout(resolve, 200));
+			return true;
+		}
+	};
+
+	document.addEventListener("DOMContentLoaded", async () => {
+		gsap.registerPlugin(SplitText, CustomEase)
+		CustomEase.create('hop', '0.9, 0, 0.1, 1')
+
+		// Wait until fonts are ready
+		await waitForFonts()
+
+		function animate() {
+			// Select general elements
+			const root = document.querySelector("#root") as HTMLElement
+			const mask = document.querySelector("#mask") as HTMLElement
+			
+			// Early return if essential elements are missing
+			if (!root || !mask) {
+				console.error("Preloader → Required elements not found", {
+					root: !!root,
+					mask: !!mask,
+				})
+
+				return
+			}
+
+			// Create master timeline
+			const master = gsap.timeline({ delay: 0.5 })
+
+			function createMaskInAnimation() {
+				if (!mask) {
+					console.error("Preloader → Mask in animation: Required elements not found", {
+						mask: !!mask,
+					})
+					return
+				}
+
+				master
+					.to(mask, {
+						clipPath: "polygon(40% 40%, 60% 40%, 60% 60%, 40% 60%)",
+						duration: 1,
+						ease: "power3.inOut",
+					})
+					.to(mask, {
+						clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+						duration: 0.5,
+						ease: "power1.inOut",
+					}, "+=0.25")
+					.set(root, {
+						color: "var(--color-black)",
+						backgroundColor: "var(--color-white)"
+					})
+					.addLabel("maskInEnd")
+			}
+
+			function createImagesAnimation() {
+				const imageContainer = document.querySelector("#images .image-container") as HTMLElement
+				const imageWrappers = gsap.utils.toArray<HTMLElement>("#images .image-wrapper")
+				const images = gsap.utils.toArray<HTMLElement>("#images .image")
+
+				const brandBadge = document.querySelector("#content .brand-badge") as HTMLElement
+				const imageSplitContainer = document.querySelector("#images .image-split-container") as HTMLElement
+
+				if (!imageContainer || imageWrappers.length === 0 || images.length === 0 || !brandBadge) {
+					console.error("Preloader → Images animation: Required elements not found", {
+						imageContainer: !!imageContainer,
+						imageWrappers: imageWrappers.length,
+						images: images.length,
+						brandBadge: !!brandBadge,
+						imageSplitContainer: !!imageSplitContainer,
+					})
+					return
+				}
+
+				// Animate images with stagger
+				master.to(imageWrappers, {
+					clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+					ease: "hop",
+					duration: 1,
+					stagger: 0.75,
+				}, "maskInEnd-=0.3")
+
+				// Animate image scales with stagger
+				master.to(images, {
+					scale: 1,
+					ease: "hop",
+					duration: 1.5,
+					stagger: 0.75,
+				}, "maskInEnd-=0.5")
+				.set(imageSplitContainer, {
+					display: "block",
+				})
+				.set(imageContainer, {
+					display: "none"
+				})
+				.set(brandBadge, {
+					opacity: 1,
+				})
+				.addLabel("imagesEnd")
+			}
+
+			function createSplitImageAnimation () {
+				const imageSplitLeft = document.querySelector("#images .image-split-wrapper:first-child") as HTMLElement
+				const imageSplitRight = document.querySelector("#images .image-split-wrapper:last-child") as HTMLElement
+
+				if (!imageSplitLeft || !imageSplitRight) {
+					console.error("Preloader → Split image animation: Required elements not found", {
+						imageSplitLeft: !!imageSplitLeft,
+						imageSplitRight: !!imageSplitRight,
+					})
+					return
+				}
+
+				// Split images by half in opposite directions
+				master
+					.to(imageSplitLeft, {
+						xPercent: -180,
+						duration: 1.25,
+						ease: "power3.inOut",
+					}, "imagesEnd")
+					.to(imageSplitRight, {
+						xPercent: 180,
+						duration: 1.25,
+						ease: "power3.inOut",
+					}, "imagesEnd").addLabel("splitImagesEnd")
+			}
+
+			function createMaskOutAnimation() {
+				const keywordsRows = gsap.utils.toArray("#mask .keywords-row span")
+
+				if (keywordsRows.length === 0) {
+					console.error("Preloader → Mask out animation: Required elements not found", {
+						keywordsRows: keywordsRows.length,
+					})
+
+					return
+				}
+
+				master
+					.to(mask, {
+						clipPath: "polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%)",
+						duration: 1.5,
+						ease: "power3.inOut",
+					}, "splitImagesEnd-=1.5")
+					.set(keywordsRows, {
+						animationPlayState: "paused"
+					})
+					.addLabel("maskOutEnd")
+			}
+
+			function createLogoAnimation() {
+				const logoPaths = gsap.utils.toArray<SVGPathElement[]>("#content .logo path")
+
+				if (logoPaths.length === 0) {
+					console.error("Preloader → Logo animation: Required elements not found", {
+						logoPaths: logoPaths.length,
+					})
+					return
+				}
+
+				// Animate paths to their original positions with random stagger
+				master.to(logoPaths, {
+					opacity: 1,
+					duration: 0.5,
+					ease: "power2.out",
+					stagger: {
+						amount: 0.35,
+						from: "center"
+					}
+				}, "maskOutEnd-=0.25")
+				.addLabel("logoEnd")
+			}
+		
+			function createWordsAnimation() {
+				const wordsWrapper = document.querySelector("#content .words-container") as HTMLElement
+				const words = gsap.utils.toArray<HTMLElement>("#content .words-container h2, #content .words-container p")
+				
+				if (!wordsWrapper || words.length === 0) {
+					console.error("Preloader → Words animation: Required elements not found", {
+						wordsWrapper: !!wordsWrapper,
+						words: words.length,
+					})
+					return
+				}
+
+				const { lines } = SplitText.create(words, {
+					type: "lines",
+					linesClass: "line++",
+					mask: "lines",
+				});
+
+				gsap.set(wordsWrapper, { opacity: 1 })
+				gsap.set(lines, { yPercent: 100 })
+
+				master.to(lines, {
+					yPercent: 0,
+					duration: 0.5,
+					ease: "power2.out",
+					stagger: 0.25,
+				}, "logoEnd-=0.25")
+			}
+
+			// Initialize and animate
+			createMaskInAnimation()
+			createImagesAnimation()
+			createSplitImageAnimation()
+			createMaskOutAnimation()
+			createLogoAnimation()
+			createWordsAnimation()
+		}
+
+		animate()
+	})
+</script>

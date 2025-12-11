@@ -1,1 +1,102 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Manrope';
+  src: url('/fonts/manrope-medium.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --color-white: #f1f1f1;
+    --color-gray: #919191;
+    --color-black: #1d1d1e;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+    font-family: Manrope, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif,
+      Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  .clip-path-polygon-rectangle-center {
+    clip-path: polygon(50% 50%, 50% 50%, 50% 50%, 50% 50%);
+  }
+
+  .clip-path-polygon-rectangle-corners {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  .clip-path-polygon-rectangle-bottom {
+    clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+  }
+
+  .clip-path-polygon-rectangle-left {
+    clip-path: polygon(0% 0%, 50% 0%, 50% 100%, 0% 100%);
+  }
+
+  .clip-path-polygon-rectangle-right {
+    clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%);
+  }
+
+  .aspect-ratio-3-2 {
+    aspect-ratio: 3/2;
+  }
+
+  .will-change-rotate {
+    will-change: rotate;
+  }
+
+  .will-change-clip-path {
+    will-change: clip-path;
+  }
+}
