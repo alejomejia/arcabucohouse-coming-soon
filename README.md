@@ -1,43 +1,98 @@
-# Astro Starter Kit: Minimal
+# Arcabuco House - Coming Soon
+
+A coming soon page for Arcabuco House, showcasing high-end interiorism made by Colombian artisans. The site features an animated preloader with image sequences, keyword animations, and smooth transitions built with GSAP.
+
+## What it does
+
+This is a single-page coming soon website that displays:
+
+- An animated preloader sequence with image reveals
+- A keywords wall animation
+- Brand badge and logo animations
+- A message announcing the arrival
+
+The site also includes email signature pages for team members.
+
+## Tech Stack
+
+- **Astro** - Static site framework
+- **Tailwind CSS** - Styling
+- **GSAP** - Animation library
+- **pnpm** - Package manager
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or higher)
+- pnpm
+
+### Installation
 
 ```sh
-pnpm create astro@latest -- --template minimal
+pnpm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### Development
 
-## 🚀 Project Structure
+Start the local development server:
 
-Inside of your Astro project, you'll see the following folders and files:
+```sh
+pnpm dev
+```
 
-```text
+The site will be available at `http://localhost:4321`
+
+### Build
+
+Build for production:
+
+```sh
+pnpm build
+```
+
+### Preview
+
+Preview the production build locally:
+
+```sh
+pnpm preview
+```
+
+## Project Structure
+
+```
 /
 ├── public/
+│   ├── assets/          # Images and static assets
+│   └── fonts/           # Custom fonts (Manrope)
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/      # Astro components
+│   │   ├── preloader.astro      # Main animation sequence
+│   │   ├── keywords-wall.astro  # Animated keywords
+│   │   ├── brand-badge.astro     # Brand component
+│   │   └── logo.astro            # Logo component
+│   ├── pages/
+│   │   ├── index.astro           # Main coming soon page
+│   │   └── email/                # Email signature pages
+│   ├── styles/
+│   │   └── global.css            # Global styles
+│   └── utils/
+│       └── const.ts              # Constants and config
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Environment Variables
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Create a `.env` file (see `.env.template` for reference) with:
 
-Any static assets, like images, can be placed in the `public/` directory.
+- `WEBSITE_DOMAIN` - Site domain URL (optional)
+- `UMAMI_WEBSITE_ID` - Analytics tracking ID (optional)
 
-## 🧞 Commands
+## Features
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- **Animated Preloader**: Sequential image reveals with clip-path animations
+- **Keywords Wall**: Scrolling keywords animation
+- **Responsive Design**: Mobile and desktop optimized
+- **Font Loading**: Waits for custom fonts before starting animations
+- **Email Signatures**: Individual signature pages for team members
