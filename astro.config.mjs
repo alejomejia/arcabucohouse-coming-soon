@@ -7,6 +7,9 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   site: 'https://arcabucohouse.com',
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    preview: {
+      allowedHosts: ["arcabucohouse.com", "www.arcabucohouse.com"],
+    },
   }
 })
